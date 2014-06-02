@@ -17,8 +17,7 @@
 
 @property (retain, nonatomic) IBOutlet UIButton *buttonSelect;
 @property (retain, nonatomic) IBOutlet UIButton *transpButton;
+
 - (IBAction)selectClicked:(id)sender;
-
-
 -(void)rel;
 @end

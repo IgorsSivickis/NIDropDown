@@ -21,5 +21,6 @@
 @property (nonatomic, retain) id <NIDropDownDelegate> delegate;
 @property (nonatomic, retain) NSString *animationDirection;
 -(void)hideDropDown:(UIButton *)button;
--(id)showDropDown:(UIButton *)button listHeight:(CGFloat *)height itemsArray:(NSArray *)array direction:(NSString *)direction;
+-(void)showDropDown:(UIButton *)button listHeight:(CGFloat *)height direction:(NSString *)direction;
+-(id)initTable:(UIButton *)button itemsArray:(NSArray *)array;
 @end

@@ -16,39 +16,42 @@
 @end
 
 @implementation NIDropDown
-@synthesize buttonSender;
-@synthesize list;
-@synthesize delegate;
-@synthesize animationDirection;
 
-- (id)showDropDown:(UIButton *)button listHeight:(CGFloat *)height itemsArray:(NSArray *)array direction:(NSString *)direction
+
+-(id)initTable:(UIButton *)button itemsArray:(NSArray *)array
 {
-    buttonSender = button;
-    animationDirection = direction;
-    self.table = (UITableView *)[super init];
+    self.buttonSender = button;    
+    self.table = (UITableView *) [super init];
+    
     if (self) {
         // Initialization code
         CGRect buttonFrame = button.frame;
         self.list = [NSArray arrayWithArray:array];
-     
-        if ([direction isEqualToString:@"up"]) {
-            self.frame = CGRectMake(buttonFrame.origin.x, buttonFrame.origin.y, buttonFrame.size.width, 0);
-
-        }else if ([direction isEqualToString:@"down"]) {
-            self.frame = CGRectMake(buttonFrame.origin.x, buttonFrame.origin.y+buttonFrame.size.height, buttonFrame.size.width, 0);
-
-        }
         
+        self.frame = CGRectMake(buttonFrame.origin.x, buttonFrame.origin.y, buttonFrame.size.width, 0);
+    
         self.layer.masksToBounds = NO;
         self.layer.borderWidth = 1;
         
-       
         self.table = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, buttonFrame.size.width, 0)];
         self.table.delegate = self;
         self.table.dataSource = self;
-
+        
         self.table.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         self.table.separatorColor = [UIColor grayColor];
+        [button.superview addSubview:self];
+        [self addSubview:self.table];
+        
+    }
+    return self;
+}
+
+- (void)showDropDown:(UIButton *)button listHeight:(CGFloat *)height direction:(NSString *)direction
+{
+    self.buttonSender = button;
+    animationDirection = direction;
+
+        CGRect buttonFrame = button.frame;
         
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.5];
@@ -60,10 +63,9 @@
         }
         self.table.frame = CGRectMake(0, 0, buttonFrame.size.width, *height);
         [UIView commitAnimations];
-        [button.superview addSubview:self];
-        [self addSubview:self.table];
-    }
-    return self;
+    
+    NSLog(@"%@",[self.list description]);
+    
 }
 
 -(void)hideDropDown:(UIButton *)button
@@ -90,7 +92,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     return buttonSender.frame.size.height;
+     return self.buttonSender.frame.size.height;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -110,7 +112,7 @@
         cell.textLabel.textAlignment = UITextAlignmentCenter;
     }
 
-    cell.textLabel.text =[list objectAtIndex:indexPath.row];
+    cell.textLabel.text = [self.list objectAtIndex:indexPath.row];
         
     
     UIView * view = [[UIView alloc] init];
@@ -122,10 +124,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self hideDropDown:buttonSender];
+    [self hideDropDown:self.buttonSender];
     
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    [buttonSender setTitle:cell.textLabel.text forState:UIControlStateNormal];
+    [self.buttonSender setTitle:cell.textLabel.text forState:UIControlStateNormal];
     
     [self myDelegate];
 }
