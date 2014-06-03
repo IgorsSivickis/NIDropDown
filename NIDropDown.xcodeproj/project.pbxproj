@@ -17,7 +17,6 @@
 		1945B530168D563E00C11EB2 /* NIDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 1945B52F168D563E00C11EB2 /* NIDropDown.m */; };
 		1945B538168D592A00C11EB2 /* NIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1945B536168D592A00C11EB2 /* NIViewController.m */; };
 		1945B539168D592A00C11EB2 /* NIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1945B537168D592A00C11EB2 /* NIViewController.xib */; };
-		5E60873019376D5400EF0AB1 /* arrowDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E60872F19376D5400EF0AB1 /* arrowDown.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +36,6 @@
 		1945B535168D592A00C11EB2 /* NIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIViewController.h; sourceTree = "<group>"; };
 		1945B536168D592A00C11EB2 /* NIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIViewController.m; sourceTree = "<group>"; };
 		1945B537168D592A00C11EB2 /* NIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NIViewController.xib; sourceTree = "<group>"; };
-		5E60872F19376D5400EF0AB1 /* arrowDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowDown.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +97,6 @@
 		1945B51D168D55D100C11EB2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				5E60872F19376D5400EF0AB1 /* arrowDown.png */,
 				1945B51E168D55D100C11EB2 /* NIDropDown-Info.plist */,
 				1945B51F168D55D100C11EB2 /* InfoPlist.strings */,
 				1945B522168D55D100C11EB2 /* main.m */,
@@ -170,7 +167,6 @@
 				1945B521168D55D100C11EB2 /* InfoPlist.strings in Resources */,
 				1945B539168D592A00C11EB2 /* NIViewController.xib in Resources */,
 				193BFD8717201AFA00070D79 /* Default-568h@2x.png in Resources */,
-				5E60873019376D5400EF0AB1 /* arrowDown.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
