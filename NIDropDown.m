@@ -34,7 +34,13 @@
 @end
 
 //  Maximum items shown in table without scrolling.
-#define MAX_ITEMS_IN_TABLE            5
+#define MAX_ITEMS_IN_TABLE                  5
+
+// Distance between menu button and table in pixels.
+#define TABLE_FROM_BUTTON_OFFSET            2
+
+// Difference between button and table cell height in pixels.
+#define TABLE_AND_CELL_HEIGHT_DIFFERENCE    7
 
 @implementation NIDropDown
 
@@ -67,6 +73,7 @@
         }else{
             [self.menuButton setTitle:@"Empty array :(" forState:UIControlStateNormal];
         }
+        [self.menuButton setBackgroundColor:[UIColor lightGrayColor]];
         self.menuButton.layer.borderWidth = 1;
         self.menuButton.layer.borderColor = [[UIColor blackColor] CGColor];
         
@@ -74,7 +81,7 @@
         
         CGRect buttonFrame = button.frame;
         
-        self.frame = CGRectMake(buttonFrame.origin.x, buttonFrame.origin.y+buttonFrame.size.height, buttonFrame.size.width, 0);
+        self.frame = CGRectMake(buttonFrame.origin.x, buttonFrame.origin.y+buttonFrame.size.height+TABLE_FROM_BUTTON_OFFSET, buttonFrame.size.width, 0);
     
         self.layer.masksToBounds = NO;
         self.layer.borderWidth = 1;
@@ -112,19 +119,19 @@
   // Opens menu with defined items count in table which can be shown without scroll.
     
     CGRect buttonFrame = self.menuButton.frame;
-    CGFloat listHeight;
+    CGFloat listHeight = buttonFrame.size.height+TABLE_AND_CELL_HEIGHT_DIFFERENCE;
     
     if ([self.list count] < MAX_ITEMS_IN_TABLE){
-       listHeight = self.menuButton.frame.size.height * [self.list count];
+       listHeight *= [self.list count];
     } else if ([self.list count] >= MAX_ITEMS_IN_TABLE){
-        listHeight = self.menuButton.frame.size.height * MAX_ITEMS_IN_TABLE;
+       listHeight *= MAX_ITEMS_IN_TABLE;
     }
     
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.3];
     [UIView setAnimationBeginsFromCurrentState:YES];
     
-    self.frame = CGRectMake(buttonFrame.origin.x, buttonFrame.origin.y+buttonFrame.size.height, buttonFrame.size.width, listHeight);
+    self.frame = CGRectMake(buttonFrame.origin.x, buttonFrame.origin.y+buttonFrame.size.height+TABLE_FROM_BUTTON_OFFSET, buttonFrame.size.width, listHeight);
     
     self.table.frame = CGRectMake(0, 0, buttonFrame.size.width, listHeight);
     [UIView commitAnimations];
@@ -141,7 +148,7 @@
     [UIView setAnimationBeginsFromCurrentState:YES];
     
     [self.blockButton setAlpha:0.0];
-    self.frame = CGRectMake(buttonFrame.origin.x, buttonFrame.origin.y+buttonFrame.size.height, buttonFrame.size.width, 0);
+    self.frame = CGRectMake(buttonFrame.origin.x, buttonFrame.origin.y+buttonFrame.size.height+TABLE_FROM_BUTTON_OFFSET, buttonFrame.size.width, 0);
     self.table.frame = CGRectMake(0, 0, buttonFrame.size.width, 0);
     
     [UIView commitAnimations];
@@ -151,7 +158,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
  //  Set rows height according button height.
-    return self.menuButton.frame.size.height;
+    return self.menuButton.frame.size.height+TABLE_AND_CELL_HEIGHT_DIFFERENCE;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -176,7 +183,7 @@
     cell.textLabel.text = [self.list objectAtIndex:indexPath.row];        
     
     UIView * view = [[UIView alloc] init];
-    view.backgroundColor = [UIColor grayColor];
+    view.backgroundColor = [UIColor lightGrayColor];
     cell.selectedBackgroundView = view;
     
     [tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
